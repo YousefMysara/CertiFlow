@@ -1,0 +1,26 @@
+# Server
+node_modules/
+dist/
+data/
+uploads/
+storage/
+*.log
+.env
+
+# Client
+client/node_modules/
+client/dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp
+*.tmp
+*.temp

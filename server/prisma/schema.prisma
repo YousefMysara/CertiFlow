@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model CertificateTemplate {
+  id           String   @id @default(cuid())
+  name         String
+  templateData Bytes    // PDF template file
+  fieldConfigs String   // JSON string of field configurations
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model EmailTemplate {
+  id           String   @id @default(cuid())
+  name         String
+  subject      String
+  htmlContent  String
+  placeholders String   // JSON array of placeholder names
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model BatchJob {
+  id              String      @id @default(cuid())
+  type            String      // "certificate" | "email"
+  status          String      @default("pending") // "pending" | "processing" | "completed" | "failed" | "cancelled"
+  config          String      // JSON configuration
+  totalCount      Int         @default(0)
+  processedCount  Int         @default(0)
+  successCount    Int         @default(0)
+  failedCount     Int         @default(0)
+  outputPath      String?     // Where certificates are saved
+  createdAt       DateTime    @default(now())
+  completedAt     DateTime?
+  recipients      Recipient[]
+}
+
+model Recipient {
+  id              String    @id @default(cuid())
+  batchJobId      String
+  batchJob        BatchJob  @relation(fields: [batchJobId], references: [id], onDelete: Cascade)
+  email           String
+  fullName        String
+  extraFields     String?   // JSON of additional CSV columns
+  certificatePath String?
+  emailStatus     String    @default("pending") // "pending" | "sent" | "failed"
+  errorMessage    String?
+  sentAt          DateTime?
+  createdAt       DateTime  @default(now())
+}
+
+model SmtpConfig {
+  id                String   @id @default(cuid())
+  name              String
+  host              String
+  port              Int
+  username          String
+  passwordEncrypted String
+  fromName          String?
+  isDefault         Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model AppSettings {
+  id                    String   @id @default("default")
+  defaultOutputPath     String   @default("./storage/certificates")
+  emailDelayMs          Int      @default(3000)
+  maxEmailsPerDay       Int      @default(500)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}

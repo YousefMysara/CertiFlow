@@ -1,0 +1,19 @@
+
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package '@pdf-lib/fontkit' imported from C:\Users\youse\Downloads\Softwares\CertiFlow\server\src\services\pdf.service.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:256:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:854:18)
+    at defaultResolve (node:internal/modules/esm/resolve:984:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///C:/Users/youse/Downloads/Softwares/CertiFlow/server/node_modules/tsx/dist/esm/index.mjs?1769552593964:2:3744)
+    at resolveDirectory (file:///C:/Users/youse/Downloads/Softwares/CertiFlow/server/node_modules/tsx/dist/esm/index.mjs?1769552593964:2:4243)
+    at resolveTsPaths (file:///C:/Users/youse/Downloads/Softwares/CertiFlow/server/node_modules/tsx/dist/esm/index.mjs?1769552593964:2:4984)
+    at resolve (file:///C:/Users/youse/Downloads/Softwares/CertiFlow/server/node_modules/tsx/dist/esm/index.mjs?1769552593964:2:5361)
+    at nextResolve (node:internal/modules/esm/hooks:748:28) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v22.17.1
